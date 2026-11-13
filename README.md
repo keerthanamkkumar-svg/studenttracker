@@ -150,3 +150,14 @@ The Student Task & Deadline Manager is a simple yet useful web application devel
 It provides an easy way to organize academic activities, remember deadlines, and monitor task completion.
 
 This project helped me understand the fundamentals of web development and gave me practical experience in building and publishing a real-life application.
+
+## 🌐 Live Demo
+
+🚀 **Explore the working application here:**
+
+[Click Here to Open Student Task & Deadline Manager](https://spiffy-conkies-ea1df2.netlify.app/)
+
+## 💻 Source Code
+
+The complete source code is available in this GitHub repository.
+
