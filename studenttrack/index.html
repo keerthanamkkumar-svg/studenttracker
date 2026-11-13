@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Activity Tracker</title>
+
+  <!-- Google Fonts (Poppins) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#records">Skip to records</a>
+
+  <!-- ===== Header ===== -->
+  <header class="app-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <span class="brand-icon" aria-hidden="true"><i class="fa-solid fa-graduation-cap"></i></span>
+        <div>
+          <h1>Student Activity Tracker</h1>
+          <p>Track, analyse and celebrate student engagement</p>
+        </div>
+      </div>
+      <button id="themeToggle" class="icon-btn" type="button" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle dark mode">
+        <i id="themeIcon" class="fa-solid fa-moon" aria-hidden="true"></i>
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ===== Dashboard summary cards ===== -->
+    <section class="summary-grid" aria-labelledby="summary-heading">
+      <h2 id="summary-heading" class="sr-only">Dashboard summary</h2>
+
+      <article class="stat-card">
+        <span class="stat-icon grad-1" aria-hidden="true"><i class="fa-solid fa-list-check"></i></span>
+        <div>
+          <p class="stat-label">Total Activities</p>
+          <p class="stat-value" id="statActivities">0</p>
+        </div>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-icon grad-2" aria-hidden="true"><i class="fa-solid fa-users"></i></span>
+        <div>
+          <p class="stat-label">Total Students</p>
+          <p class="stat-value" id="statStudents">0</p>
+        </div>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-icon grad-3" aria-hidden="true"><i class="fa-solid fa-clock"></i></span>
+        <div>
+          <p class="stat-label">Total Hours</p>
+          <p class="stat-value" id="statHours">0</p>
+        </div>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-icon grad-4" aria-hidden="true"><i class="fa-solid fa-trophy"></i></span>
+        <div>
+          <p class="stat-label">Most Active Student</p>
+          <p class="stat-value stat-value-text" id="statTop">—</p>
+          <p class="stat-sub" id="statTopSub">No data yet</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ===== Add / Edit form ===== -->
+    <section class="card" aria-labelledby="form-heading">
+      <div class="card-head">
+        <h2 id="form-heading"><i class="fa-solid fa-pen-to-square" aria-hidden="true"></i> <span id="formTitle">Add New Activity</span></h2>
+      </div>
+
+      <form id="activityForm" novalidate>
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label for="field-name">Student name <span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="field-name" name="name" maxlength="60" autocomplete="off" placeholder="e.g. Aarav Sharma" required aria-required="true" aria-describedby="error-name">
+            <p class="error-msg" id="error-name" role="alert"></p>
+          </div>
+
+          <div class="form-group">
+            <label for="field-roll">Roll number <span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="field-roll" name="roll" maxlength="20" autocomplete="off" placeholder="e.g. CS101" required aria-required="true" aria-describedby="error-roll">
+            <p class="error-msg" id="error-roll" role="alert"></p>
+          </div>
+
+          <div class="form-group">
+            <label for="field-type">Activity type <span class="req" aria-hidden="true">*</span></label>
+            <select id="field-type" name="type" required aria-required="true" aria-describedby="error-type">
+              <option value="">Select type…</option>
+              <option value="Sports">Sports</option>
+              <option value="Academics">Academics</option>
+              <option value="Arts">Arts</option>
+              <option value="Club">Club</option>
+              <option value="Volunteering">Volunteering</option>
+              <option value="Other">Other</option>
+            </select>
+            <p class="error-msg" id="error-type" role="alert"></p>
+          </div>
+
+          <div class="form-group">
+            <label for="field-title">Activity title <span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="field-title" name="title" maxlength="100" autocomplete="off" placeholder="e.g. Football Tournament" required aria-required="true" aria-describedby="error-title">
+            <p class="error-msg" id="error-title" role="alert"></p>
+          </div>
+
+          <div class="form-group">
+            <label for="field-date">Date <span class="req" aria-hidden="true">*</span></label>
+            <input type="date" id="field-date" name="date" required aria-required="true" aria-describedby="error-date">
+            <p class="error-msg" id="error-date" role="alert"></p>
+          </div>
+
+          <div class="form-group">
+            <label for="field-duration">Duration (hours) <span class="req" aria-hidden="true">*</span></label>
+            <input type="number" id="field-duration" name="duration" step="0.25" inputmode="decimal" placeholder="e.g. 2.5" required aria-required="true" aria-describedby="error-duration">
+            <p class="error-msg" id="error-duration" role="alert"></p>
+          </div>
+
+          <div class="form-group form-group-full">
+            <label for="field-notes">Notes <span class="optional">(optional)</span></label>
+            <textarea id="field-notes" name="notes" rows="3" maxlength="300" placeholder="Any extra details…" aria-describedby="error-notes"></textarea>
+            <p class="error-msg" id="error-notes" role="alert"></p>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="submitBtn">
+            <i class="fa-solid fa-plus" id="submitIcon" aria-hidden="true"></i>
+            <span id="submitText">Add Activity</span>
+          </button>
+          <button type="button" class="btn btn-ghost" id="cancelEditBtn" hidden>
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i> Cancel Edit
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ===== Charts ===== -->
+    <section class="charts-grid" aria-labelledby="charts-heading">
+      <h2 id="charts-heading" class="sr-only">Charts</h2>
+
+      <article class="card">
+        <div class="card-head">
+          <h2><i class="fa-solid fa-chart-pie" aria-hidden="true"></i> Activities by Type</h2>
+        </div>
+        <div class="chart-box">
+          <canvas id="typeChart" role="img" aria-label="Doughnut chart of activities by type"></canvas>
+          <p class="chart-empty" id="typeChartEmpty" hidden>No data to chart yet.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-head">
+          <h2><i class="fa-solid fa-chart-column" aria-hidden="true"></i> Hours per Student</h2>
+        </div>
+        <div class="chart-box">
+          <canvas id="studentChart" role="img" aria-label="Bar chart of total hours per student"></canvas>
+          <p class="chart-empty" id="studentChartEmpty" hidden>No data to chart yet.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ===== Records table ===== -->
+    <section class="card" id="records" aria-labelledby="records-heading" tabindex="-1">
+      <div class="card-head card-head-wrap">
+        <h2 id="records-heading"><i class="fa-solid fa-table-list" aria-hidden="true"></i> Activity Records</h2>
+        <button type="button" class="btn btn-success" id="exportBtn" title="Download all records as a CSV file">
+          <i class="fa-solid fa-file-csv" aria-hidden="true"></i> Export CSV
+        </button>
+      </div>
+
+      <!-- Search, filter and sort toolbar -->
+      <div class="toolbar" role="search" aria-label="Search, filter and sort activities">
+        <div class="form-group toolbar-search">
+          <label for="searchInput">Search</label>
+          <div class="input-icon">
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            <input type="search" id="searchInput" placeholder="Student name or roll number" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="filterType">Activity type</label>
+          <select id="filterType">
+            <option value="">All types</option>
+            <option value="Sports">Sports</option>
+            <option value="Academics">Academics</option>
+            <option value="Arts">Arts</option>
+            <option value="Club">Club</option>
+            <option value="Volunteering">Volunteering</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="dateFrom">From date</label>
+          <input type="date" id="dateFrom">
+        </div>
+
+        <div class="form-group">
+          <label for="dateTo">To date</label>
+          <input type="date" id="dateTo">
+        </div>
+
+        <div class="form-group">
+          <label for="sortBy">Sort by</label>
+          <div class="sort-row">
+            <select id="sortBy">
+              <option value="date">Date</option>
+              <option value="name">Name</option>
+              <option value="duration">Duration</option>
+            </select>
+            <button type="button" class="btn btn-ghost btn-square" id="sortDirBtn" aria-label="Sort direction: descending" title="Toggle sort direction">
+              <i class="fa-solid fa-arrow-down-wide-short" id="sortDirIcon" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group toolbar-reset">
+          <button type="button" class="btn btn-ghost" id="resetFiltersBtn">
+            <i class="fa-solid fa-rotate-left" aria-hidden="true"></i> Reset
+          </button>
+        </div>
+      </div>
+
+      <p class="error-msg filter-error" id="filterError" role="alert"></p>
+      <p class="result-count" id="resultCount" aria-live="polite"></p>
+
+      <div class="table-wrap" id="tableWrap">
+        <table>
+          <caption class="sr-only">Student activities</caption>
+          <thead>
+            <tr>
+              <th scope="col">Student</th>
+              <th scope="col">Roll No.</th>
+              <th scope="col">Type</th>
+              <th scope="col">Title</th>
+              <th scope="col">Date</th>
+              <th scope="col">Hours</th>
+              <th scope="col">Notes</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="activityBody"></tbody>
+        </table>
+      </div>
+
+      <!-- Empty state -->
+      <div class="empty-state" id="emptyState" hidden>
+        <i class="fa-regular fa-folder-open" aria-hidden="true"></i>
+        <h3 id="emptyTitle">No activities yet</h3>
+        <p id="emptyText">Add your first student activity using the form above.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>Student Activity Tracker &middot; Data is saved in your browser</p>
+  </footer>
+
+  <!-- Toast notifications -->
+  <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="false"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
